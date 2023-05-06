@@ -1,7 +1,39 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import data from "../Components/data";
+import { useState } from "react";
 
-const Reviews = ({ currentReview }) => {
-  const { name, job, image, text } = currentReview;
+const Reviews = () => {
+  const [index, setIndex] = useState(0);
+  const { name, job, image, text } = data[index];
+
+  const prevChangeHandler = () => {
+    setIndex((index) => {
+      let newIndex = data.length - 1;
+      if (index === 0) {
+        return newIndex;
+      } else {
+        newIndex = index - 1;
+        return newIndex;
+      }
+    });
+  };
+
+  const nextChangeHandler = () => {
+    setIndex((index) => {
+      let newIndex = 0;
+      if (index === 3) {
+        return newIndex;
+      } else {
+        newIndex = index + 1;
+        return newIndex;
+      }
+    });
+  };
+
+  const surpriseMeHandler = () => {
+    setIndex(Math.floor(Math.random() * data.length));
+  };
+
   return (
     <article className="bg-white w-[38rem] space-y-[1rem] flex flex-col py-[3rem] px-[2rem] text-center items-center border-[1px] shadow-xl rounded-lg">
       <img
@@ -20,10 +52,16 @@ const Reviews = ({ currentReview }) => {
       <p>{text}</p>
       <div>
         <div className="space-x-[1rem]">
-          <button className=""><FaChevronLeft/></button>
-          <button><FaChevronRight/></button>
+          <button className="" onClick={prevChangeHandler}>
+            <FaChevronLeft />
+          </button>
+          <button onClick={nextChangeHandler}>
+            <FaChevronRight />
+          </button>
         </div>
-        <button className="">Surprise me</button>
+        <button onClick={surpriseMeHandler} className="text-blue-500 border-[1px] border-blue-500 px-[1.5rem] py-[0.4rem] rounded-full font-bold hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-200">
+          Surprise me
+        </button>
       </div>
     </article>
   );
