@@ -31,7 +31,16 @@ const Reviews = () => {
   };
 
   const surpriseMeHandler = () => {
-    setIndex(Math.floor(Math.random() * data.length));
+    let randomNumber = Math.floor(Math.random() * data.length);
+    if (randomNumber === index) {
+      if (index === 3) {
+        setIndex(index - 1);
+      } else {
+        setIndex(index + 1);
+      }
+    } else {
+      setIndex(randomNumber);
+    }
   };
 
   return (
@@ -59,7 +68,10 @@ const Reviews = () => {
             <FaChevronRight />
           </button>
         </div>
-        <button onClick={surpriseMeHandler} className="text-blue-500 border-[1px] border-blue-500 px-[1.5rem] py-[0.4rem] rounded-full font-bold hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-200">
+        <button
+          onClick={surpriseMeHandler}
+          className="text-blue-500 border-[1px] border-blue-500 px-[1.5rem] py-[0.4rem] rounded-full font-bold hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-200"
+        >
           Surprise me
         </button>
       </div>
